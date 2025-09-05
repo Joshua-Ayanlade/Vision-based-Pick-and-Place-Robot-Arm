@@ -1,0 +1,13 @@
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target _ur10_robot_arm_generate_messages_check_deps_endEffectorPose
+[  0%] Built target _ur10_robot_arm_generate_messages_check_deps_frameDev
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_lisp
+[ 25%] Built target ur10_robot_arm_generate_messages_py
+[ 41%] Built target ur10_robot_arm_generate_messages_cpp
+[ 58%] Built target ur10_robot_arm_generate_messages_nodejs
+[ 83%] Built target ur10_robot_arm_generate_messages_eus
+[100%] Built target ur10_robot_arm_generate_messages_lisp
+[100%] Built target ur10_robot_arm_generate_messages

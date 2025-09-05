@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <param name="robot_description" command="$(find xacro)/xacro '$(find ur10_robot_arm)/xacro/ur10_w_gripper.xacro'"/>
+
+    <rosparam file ="$(find ur10_robot_arm)/config/joint_trajectory_controller.yaml"
+    command="load"/>
+    
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" default="$(find arm)/ur10_w_gripper/world/ar_marker_chand.world"/>
+        <arg name="paused" default="false"/>
+    </include>
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_ur10" args="-param robot_description -urdf -model ur10_w_gripper -z 0.0" />
+    
+    <node name= "controller_spawner" pkg= "controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_state_controller arm_controller gripper_controller"/>
+
+     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    
+    <!--joint state is published through the controller yaml file.
+    Robot state and joint state is needed in rviz for visualization purposes-->
+    
+       <!--publish the a transform specifying pose of optical frame-->
+    <node pkg="tf" type="static_transform_publisher" name="kinect_optical_transform" args="0 0 0 -1.5707 0 -1.5707 octomap_kinect octomap_kinect_optical_frame 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="scene_kinect_optical_transform" args="0 0 0 -1.5707 0 -1.5707 scene_kinect scene_kinect_optical_frame 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="gripper_kinect_optical_transform" args="0 0 0 -1.5707 0 -1.5707 gripper_kinect gripper_kinect_optical_frame 100"/>
+
+    <!--rviz config-->
+    <arg name="rviz_config" default="$(find moveit)/config/ur10_rviz2.rviz"/>
+    
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/>
+
+
+</launch>

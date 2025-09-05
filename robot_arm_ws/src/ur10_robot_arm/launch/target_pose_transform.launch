@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <!--To rotate detected tag axis to match with world axis-->
+    <arg name="dect_tag_rot" default="0 0 0 0 1.57 0"/>
+    <!--To translate detect tag axis to target position axis-->
+    <!--- name="dect_tag_trans" default="0.0 0.0 0.0 0 0 0"/-->
+    <arg name="dect_tag_trans" default="-0.14 0.0 -0.15 0 0 0"/>
+    
+    <!--To create a static transform of the target from identfied ar_tag-->
+    <node pkg="tf" type="static_transform_publisher" name="marker_1_rot" args="$(arg dect_tag_rot) ar_marker_1 marker_1_rot 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_2_rot" args="$(arg dect_tag_rot) ar_marker_2 marker_2_rot 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_3_rot" args="$(arg dect_tag_rot) ar_marker_3 marker_3_rot 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_4_rot" args="$(arg dect_tag_rot) ar_marker_4 marker_4_rot 100"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="marker_1_trans" args="$(arg dect_tag_trans) marker_1_rot item_1 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_2_trans" args="$(arg dect_tag_trans) marker_2_rot item_2 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_3_trans" args="$(arg dect_tag_trans) marker_3_rot item_3 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_4_trans" args="$(arg dect_tag_trans) marker_4_rot item_4 100"/>
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="marker_1_gripper_rot" args="$(arg dect_tag_rot) ar_marker_1 marker_1_gripper_rot 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_2_gripper_rot" args="$(arg dect_tag_rot) ar_marker_2 marker_2_gripper_rot 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_3_gripper_rot" args="$(arg dect_tag_rot) ar_marker_3 marker_3_gripper_rot 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="marker_4_gripper_rot" args="$(arg dect_tag_rot) ar_marker_4 marker_4_gripper_rot 100"/> -->
+
+    
+</launch>

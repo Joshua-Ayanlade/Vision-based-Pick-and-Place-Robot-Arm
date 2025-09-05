@@ -1,0 +1,48 @@
+#Controller to control robot arm joints
+arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - urshoulder_pan_joint
+    - urshoulder_lift_joint
+    - urelbow_joint
+    - urwrist_1_joint
+    - urwrist_2_joint
+    - urwrist_3_joint
+
+gripper_controllers:
+  type: "position_controllers/GripperActionController"
+  joint: ur_finger_left_joint
+  action_monitor_rate: 20
+  goal_tolerance: 0.002
+  max_effort: 100
+  stall_velocity_threshold: 0.001
+  stall_timeout: 1.0
+  gains:
+    ur_finger_left_joint:
+      p: 2500
+      d: 10
+      i: 10
+      i_clamp: 1
+
+gripper_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints: 
+    - ur_finger_left_joint
+    - ur_finger_right_joint
+  gains:
+    ur_finger_left_joint:
+      p: 2500
+      d: 10
+      i: 10
+      i_clamp: 1
+    ur_finger_right_joint:
+      p: 2500
+      d: 10
+      i: 10
+      i_clamp: 1
+
+
+joint_state_controller:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+

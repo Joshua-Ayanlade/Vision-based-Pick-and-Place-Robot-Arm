@@ -1,0 +1,109 @@
+<?xml version='1.0'?>
+<sdf version ='1.4'>
+                
+  <model name="ar_tag_1">
+      <static>true</static>
+      <!--pose>0 0 0.63 0 0 0</pose-->
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.2 0.01 0.2</size></box></geometry>
+          <material>
+            <script>
+              <uri>model://ar_tag/materials</uri>
+	            <uri>model://ar_tag/textures</uri>
+              <name>ar_tag/tag_1</name>
+            </script>
+          </material>
+        </visual>
+	
+	<collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 0.01 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+
+      </link>
+  </model>
+
+  <model name="ar_tag_2">
+      <static>true</static>
+      <!--pose>0 0 0.63 0 0 0</pose-->
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.2 0.01 0.2</size></box></geometry>
+          <material>
+            <script>
+              <uri>model://ar_tag/materials</uri>
+	            <uri>model://ar_tag/textures</uri>
+              <name>ar_tag/tag_2</name>
+            </script>
+          </material>
+        </visual>
+	
+	<collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 0.01 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+
+      </link>
+  </model>
+
+  <model name="ar_tag_3">
+      <static>true</static>
+      <!--pose>0 0 0.63 0 0 0</pose-->
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.2 0.01 0.2</size></box></geometry>
+          <material>
+            <script>
+              <uri>model://ar_tag/materials</uri>
+	            <uri>model://ar_tag/textures</uri>
+              <name>ar_tag/tag_3</name>
+            </script>
+          </material>
+        </visual>
+	
+	<collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 0.01 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+
+      </link>
+  </model>
+
+  <model name="ar_tag_4">
+      <static>true</static>
+      <!--pose>0 0 0.63 0 0 0</pose-->
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.2 0.01 0.2</size></box></geometry>
+          <material>
+            <script>
+              <uri>model://ar_tag/materials</uri>
+	            <uri>model://ar_tag/textures</uri>
+              <name>ar_tag/tag_4</name>
+            </script>
+          </material>
+        </visual>
+	
+	<collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 0.01 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+
+      </link>
+  </model>
+
+</sdf>
+                

@@ -1,0 +1,52 @@
+material ar_tag/tag_1 {
+    receive_shadows on
+    technique {
+        pass {
+        ambient 1.0 1.0 1.0 1.0
+        diffuse 1.0 1.0 1.0 1.0
+        specular 0.5 0.5 0.5 1.0
+        lighting on
+        shading gouraud
+        texture_unit { texture ar_tag_1.png }
+        }
+    }
+}
+material ar_tag/tag_2 {
+    receive_shadows on
+    technique {
+        pass {
+        ambient 1.0 1.0 1.0 1.0
+        diffuse 1.0 1.0 1.0 1.0
+        specular 0.5 0.5 0.5 1.0
+        lighting on
+        shading gouraud
+        texture_unit { texture ar_tag_2.png }
+        }
+    }
+}
+material ar_tag/tag_3 {
+    receive_shadows on
+    technique {
+        pass {
+        ambient 1.0 1.0 1.0 1.0
+        diffuse 1.0 1.0 1.0 1.0
+        specular 0.5 0.5 0.5 1.0
+        lighting on
+        shading gouraud
+        texture_unit { texture ar_tag_3.png }
+        }
+    }
+}
+material ar_tag/tag_4 {
+    receive_shadows on
+    technique {
+        pass {
+        ambient 1.0 1.0 1.0 1.0
+        diffuse 1.0 1.0 1.0 1.0
+        specular 0.5 0.5 0.5 1.0
+        lighting on
+        shading gouraud
+        texture_unit { texture ar_tag_4.png }
+        }
+    }
+}

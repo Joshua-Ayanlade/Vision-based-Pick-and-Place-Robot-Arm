@@ -1,0 +1,21 @@
+{
+    "ros.distro": "melodic",
+    "python.autoComplete.extraPaths": [
+        "/home/vboxuser/robot_arm_ws/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/cpp_ros/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/find_object_2d/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/husky_ur_ws/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/rbk_ws/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/turtlebot_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/vboxuser/robot_arm_ws/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/cpp_ros/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/find_object_2d/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/husky_ur_ws/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/rbk_ws/devel/lib/python2.7/dist-packages",
+        "/home/vboxuser/turtlebot_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ]
+}

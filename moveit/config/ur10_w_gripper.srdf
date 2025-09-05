@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="ur10_w_gripper">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <link name="urshoulder_link" />
+        <link name="urupper_arm_link" />
+        <link name="urforearm_link" />
+        <link name="urwrist_1_link" />
+        <link name="urwrist_2_link" />
+        <link name="urwrist_3_link" />
+    </group>
+    <group name="gripper">
+        <joint name="ur_finger_left_joint" />
+        <joint name="ur_finger_right_joint" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="arm_pose0" group="arm">
+        <joint name="urelbow_joint" value="2.5861" />
+        <joint name="urshoulder_lift_joint" value="-2.0481" />
+        <joint name="urshoulder_pan_joint" value="0.3124" />
+        <joint name="urwrist_1_joint" value="-2.1869" />
+        <joint name="urwrist_2_joint" value="-1.4927" />
+        <joint name="urwrist_3_joint" value="0" />
+    </group_state>
+    <group_state name="gripper_close" group="gripper">
+        <joint name="ur_finger_left_joint" value="0" />
+        <joint name="ur_finger_right_joint" value="0" />
+    </group_state>
+    <group_state name="home_pose" group="arm">
+        <joint name="urelbow_joint" value="-2.8258" />
+        <joint name="urshoulder_lift_joint" value="-0.1818" />
+        <joint name="urshoulder_pan_joint" value="-1.4701" />
+        <joint name="urwrist_1_joint" value="-0.2041" />
+        <joint name="urwrist_2_joint" value="1.6919" />
+        <joint name="urwrist_3_joint" value="-3.1589" />
+    </group_state>
+    <group_state name="arm_pose2" group="arm">
+        <joint name="urelbow_joint" value="-0.6075" />
+        <joint name="urshoulder_lift_joint" value="-2.6035" />
+        <joint name="urshoulder_pan_joint" value="-0.5207" />
+        <joint name="urwrist_1_joint" value="-5.5888" />
+        <joint name="urwrist_2_joint" value="1.4232" />
+        <joint name="urwrist_3_joint" value="0" />
+    </group_state>
+    <group_state name="gripper_open1" group="gripper">
+        <joint name="ur_finger_left_joint" value="0.0207" />
+    </group_state>
+    <group_state name="gripper_close" group="gripper">
+        <joint name="ur_finger_left_joint" value="0.0" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="grip" parent_link="urwrist_3_link" group="gripper" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="ur_base_link" link2="ur_left_finger" reason="Adjacent" />
+    <disable_collisions link1="ur_base_link" link2="ur_right_finger" reason="Adjacent" />
+    <disable_collisions link1="ur_base_link" link2="urwrist_1_link" reason="Never" />
+    <disable_collisions link1="ur_base_link" link2="urwrist_2_link" reason="Never" />
+    <disable_collisions link1="ur_base_link" link2="urwrist_3_link" reason="Adjacent" />
+    <disable_collisions link1="ur_left_finger" link2="ur_right_finger" reason="Default" />
+    <disable_collisions link1="ur_left_finger" link2="urwrist_1_link" reason="Never" />
+    <disable_collisions link1="ur_left_finger" link2="urwrist_2_link" reason="Never" />
+    <disable_collisions link1="ur_left_finger" link2="urwrist_3_link" reason="Never" />
+    <disable_collisions link1="ur_right_finger" link2="urwrist_1_link" reason="Never" />
+    <disable_collisions link1="ur_right_finger" link2="urwrist_2_link" reason="Never" />
+    <disable_collisions link1="ur_right_finger" link2="urwrist_3_link" reason="Never" />
+    <disable_collisions link1="urbase_link_inertia" link2="urshoulder_link" reason="Adjacent" />
+    <disable_collisions link1="urbase_link_inertia" link2="urupper_arm_link" reason="Never" />
+    <disable_collisions link1="urbase_link_inertia" link2="urwrist_1_link" reason="Never" />
+    <disable_collisions link1="urforearm_link" link2="urupper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="urforearm_link" link2="urwrist_1_link" reason="Adjacent" />
+    <disable_collisions link1="urshoulder_link" link2="urupper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="urshoulder_link" link2="urwrist_1_link" reason="Never" />
+    <disable_collisions link1="urshoulder_link" link2="urwrist_2_link" reason="Never" />
+    <disable_collisions link1="urwrist_1_link" link2="urwrist_2_link" reason="Adjacent" />
+    <disable_collisions link1="urwrist_1_link" link2="urwrist_3_link" reason="Never" />
+    <disable_collisions link1="urwrist_2_link" link2="urwrist_3_link" reason="Adjacent" />
+</robot>

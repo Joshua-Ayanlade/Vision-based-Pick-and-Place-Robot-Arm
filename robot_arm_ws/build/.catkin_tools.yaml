@@ -1,0 +1,6 @@
+devel_space: /home/vboxuser/robot_arm_ws/devel
+install: false
+install_space: /home/vboxuser/robot_arm_ws/install
+profile: default
+source_space: /home/vboxuser/robot_arm_ws/src
+workspace: /home/vboxuser/robot_arm_ws

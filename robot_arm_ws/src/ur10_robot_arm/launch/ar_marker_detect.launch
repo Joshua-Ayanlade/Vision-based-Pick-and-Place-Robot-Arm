@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="marker_size" default="12.3"/>
+    <arg name="max_new_marker_error" default="0.2"/>
+    <arg name="max_track_error" default="0.8"/>
+    <arg name="cam_image_topic" default="/scene_kinect/scene/depth/points"/>
+    <arg name="cam_info_topic" default="/scene/depth/camera_info"/>
+    <arg name="output_frame" default="urbase_link"/>
+
+
+    <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkers" respawn="false" output="screen" args="$(arg marker_size) $(arg  max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)"/>
+
+    <!--For gripper camera-->
+    <!-- <arg name="grip_cam_image_topic" default="/gripper_kinect/gripper/depth/points"/>
+    <arg name="grip_cam_info_topic" default="/gripper/depth/camera_info"/>
+
+    <group ns="grip">
+      <node name="grip_ar_track_alvar" pkg="ar_track_alvar" type="individualMarkers" respawn="false" output="screen" args="$(arg marker_size) $(arg  max_new_marker_error) $(arg max_track_error) $(arg grip_cam_image_topic) $(arg grip_cam_info_topic) $(arg output_frame)"/>  
+    </group> -->
+</launch>
