@@ -1,7 +1,7 @@
 # Vision-based Pick-and-Place-Robot-Arm
 ## Overview
 <p align="justify">
-This project implements a vision-based pick-and-place robot arm using ROS. Three cameras are used, each serving a specific purpose: AR-tag detection, object pose estimation, and environment mapping for collision avoidance. The robot arm leverages MoveIt for trajectory planning and includes custom ROS service servers for image processing and object position computation with respect to the camera frame center. Modifications were made to the "onAttach" trigger conditions in the GazeboGraspFix.cpp file (created by <a href="https://github.com/JenniferBuehler/gazebo-pkgs">Jennifer Buehler</a>) to improve the chances of successful grasping.
+This project implements a vision-based pick-and-place robot arm using ROS. Three cameras are used, each serving a specific purpose: AR-tag detection, object pose estimation, and environment mapping for collision avoidance. The robot arm leverages MoveIt for trajectory planning and includes custom ROS service servers for image processing and object position computation with respect to the camera frame center. Modifications were made to the "onAttach" trigger conditions in the GazeboGraspFix.cpp file (created by <a href="https://github.com/JenniferBuehler/gazebo-pkgs">Jennifer Buehler</a>) to improve the chances of successful grasping. Using prompt from the user via the command terminal, the color of the boxes to be spawned to Gazebo are extracted and their corresponding optminzed HSV ranges were automatically generated using a ChatGPT request which enables flexible color-based object detection without manually tuning HSV values.
 </p>
 
 ## 📌 Key features:
@@ -13,6 +13,7 @@ This project implements a vision-based pick-and-place robot arm using ROS. Three
 - ✅ Coordinate transformation of the camera frame for proper orientation of point cloud data in RViz.
 - ✅ Custom **XACRO model** attaching an EGH gripper and mounting a camera to the gripper base frame for improved object tracking.
 - ✅ Enhanced GazeboGraspFix for more reliable grasping.
+- ✅ Custom chat gpt service for extracting color names from the user prompt and generating optimized HSV ranges for each color
 
 ---
 ## 📂 ur10_robot_arm Package structure
@@ -35,12 +36,15 @@ ur10_robot_arm/
 │
 ├── scripts/  
 │   ├── add_box.py                         # Spawn boxes in Gazebo  
-│   ├── ar_tag.py                          # Main script for robot–AR tag interaction  
-│   ├── endEffectorPose_server.py          # Service: get end-effector pose  
-│   └── stream_camera_server.py            # Service: detect object & compute camera deviation  
+│   ├── ar_tag.py                          # Main script for robot–AR tag interaction
+│   ├── chat_gpt_server.py                 # Service: generate Max and Min HSV values of the requested color   
+│   ├── endEffectorPose_server.py          # Service Server: get end-effector pose
+│   ├── setup_color_hsv.py                 # Service Client: send user prompt to chatgpt server and place values in parameter server
+│   └── stream_camera_server.py            # Service Server: detect object & compute camera deviation  
 │
 ├── srv/  
-│   ├── endEffectorPose.srv                # Service: request pose → return EE pose  
+│   ├── chatPrompt.srv                     # Service: request prompt model color → return color & HSV values 
+│   ├── endEffectorPose.srv                # Service: request pose → return EE pose
 │   └── frameDev.srv                       # Service: request color → return (x,y) deviation  
 │
 ├── world/  
@@ -122,10 +126,19 @@ grasps_fix_plugin/ #modified grasps fix plugin file for improved grasping
 ---
 ## ⚙️ Usage
    
-1. Launch the Gazebo world, spawn the robot arm, load the box model, start the controllers, launch MoveIt, initialize pose transformation, start the AR-tag detector, and run the camera and end-effector pose servers:  
+1. Start the ROS Master:  
+   `roscore`
+   
+2. Start the chat gpt server:  
+   `rosrun ur10_robot_arm chat_gpt_server.py`
+
+3. Start the setup color hsv service client with input request as argument:  
+   `rosrun ur10_robot_arm setup_color_hsv.py 'spawn red and blue box in gazebo'`
+   
+4. Launch the Gazebo world, spawn the robot arm, load the box model, start the controllers, launch MoveIt, initialize pose transformation, start the AR-tag detector, and run the camera and end-effector pose servers:  
    `roslaunch ur10_robot_arm ur10_w_gripper_combo.launch`
 
-2. Execute the pick-and-place routine and specify the AR tag from which you want to pick the object. Follow the prompts afterwards:
+5. Execute the pick-and-place routine and specify the AR tag from which you want to pick the object. Follow the prompts afterwards:
    
    `roslaunch ur10_robot_arm ar_tag.py 1`&nbsp;&nbsp;&nbsp;&nbsp;# *Robot arm moves towards AR Tag 1* 
 
@@ -133,6 +146,12 @@ grasps_fix_plugin/ #modified grasps fix plugin file for improved grasping
 ---
 ## 🎥 Demo
 ![UR10+arm_Pick+'n'+Place (1)](https://github.com/user-attachments/assets/088f6231-3360-416a-a6d1-d8fd38d40a41)
+
+---
+
+## 🎥 Demo with ChatGPT api
+
+![ur10arm](https://github.com/user-attachments/assets/206abb86-eaa5-4aa7-b879-3d9f1b1bbb46)
 
 ---
 
