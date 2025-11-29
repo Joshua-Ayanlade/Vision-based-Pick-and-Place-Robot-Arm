@@ -9,10 +9,10 @@
     <!--Launch move group for arm manipulation-->
     <include file="$(find moveit)/launch/move_group.launch" />
     <!--spawn box models to gazebo-->
-    <node name="spawn_box" pkg="arm" type="add_box.py" output="screen"/>
+    <node name="spawn_box" pkg="ur10_robot_arm" type="add_box.py" output="screen"/>
     <!--Object Deviation Service Server-->
-    <node name="object_deviation" pkg="arm" type="stream_camera_server.py" output="screen"/>
+    <node name="object_deviation" pkg="ur10_robot_arm" type="stream_camera_server.py" output="screen"/>
     <!--Current Pose Service Server-->
-    <node name="current_pose" pkg="arm" type="endEffectorPose_server.py" output="screen"/>
+    <node name="current_pose" pkg="ur10_robot_arm" type="endEffectorPose_server.py" output="screen"/>
 
 </launch>

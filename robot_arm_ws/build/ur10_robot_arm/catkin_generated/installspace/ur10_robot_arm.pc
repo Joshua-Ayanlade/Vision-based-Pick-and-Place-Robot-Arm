@@ -1,8 +1,0 @@
-prefix=/home/vboxuser/robot_arm_ws/install
-
-Name: ur10_robot_arm
-Description: Description of ur10_robot_arm
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: 

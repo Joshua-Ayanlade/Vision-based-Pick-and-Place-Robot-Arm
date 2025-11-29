@@ -52,9 +52,11 @@
     </group_state>
     <group_state name="gripper_open1" group="gripper">
         <joint name="ur_finger_left_joint" value="0.0207" />
+	<joint name="ur_finger_right_joint" value="-0.0207" />
     </group_state>
     <group_state name="gripper_close" group="gripper">
         <joint name="ur_finger_left_joint" value="0.0" />
+	<joint name="ur_finger_right_joint" value="0.0" />
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="grip" parent_link="urwrist_3_link" group="gripper" />

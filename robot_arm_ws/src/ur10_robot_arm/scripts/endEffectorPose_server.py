@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from arm.srv import endEffectorPose,endEffectorPoseResponse
+from ur10_robot_arm.srv import endEffectorPose,endEffectorPoseResponse
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg

@@ -79,11 +79,11 @@ def create_cube_request(sdf_model,modelname,color,px,py,pz,rr,rp,ry,sx,sy,sz):
     rr rp ry: rotation (roll, pitch, yaw) of the model
     sx sy sz: size of the cube"""
     cube = deepcopy(sdf_model)
-    # Replace size of model
+    
     size_str = str(round(sx, 3)) + " " + \
         str(round(sy, 3)) + " " + str(round(sz, 3))
     cube = cube.replace('SIZEXYZ', size_str)
-    # Replace modelname
+    
     cube = cube.replace('MODELNAME', str(modelname))
     cube = cube.replace('COLOR', str(color))
 
@@ -104,39 +104,53 @@ def create_cube_request(sdf_model,modelname,color,px,py,pz,rr,rp,ry,sx,sy,sz):
 
 
 if __name__ == '__main__':
-    #Initialize the spawn_box_models node
+    
     rospy.init_node('spawn_box_models')
     
-    #https://wiki.ros.org/ROS/Tutorials/UnderstandingServicesParams
+    rospy.sleep(2.0)
     
-    #Create a coallable object or serivce client for the service /gazebo/spawn_sdf_model
+    if rospy.has_param('/spawn_colors'):
+        colors = rospy.get_param('/spawn_colors')
+        rospy.loginfo("Using colors from parameter server: %s", colors)
+    else:
+        rospy.logerr("No colors found in parameter server! Please run ChatGPT node first.")
+        rospy.logerr("Run: rosrun ur10_robot_arm setup_colors.py 'spawn red and blue boxes'")
+        sys.exit(1)
+    
     spawn_srv = rospy.ServiceProxy('/gazebo/spawn_sdf_model', SpawnModel)
     rospy.loginfo("Waiting for /gazebo/spawn_sdf_model service...")
-    #Wait for the service to get available
     spawn_srv.wait_for_service()
     rospy.loginfo("Connected to service!")
 
-    
-    # Spawn Box
-    rospy.loginfo("Spawning package$1")
+    positions = [
+        (-0.33, 0.88, 0.920), 
+        (-0.165, 0.82, 0.920),
+        (0.14, 0.82, 0.920),
+        (0.14, 0.9, 0.920)
+    ]
 
-    #Create a request to create cube
-    request= create_cube_request(cube_sdf_model, "package$1","Green",
-                              -0.33, 0.88, 0.920,0.0, 0.0, 0.0,  # rotation
-                              0.06, 0.06, 0.1)  # size
-    request2= create_cube_request(cube_sdf_model, "package$2","Red",
-                              0.14, 0.82, 0.920,0.0, 0.0, 0.0,  # rotation
-                              0.06, 0.06, 0.1)
-    request3= create_cube_request(cube_sdf_model, "package$3","Red",
-                              -0.165, 0.82, 0.920,0.0, 0.0, 0.0,  # rotation
-                              0.06, 0.06, 0.1)
-    request4= create_cube_request(cube_sdf_model, "package$4","Green",
-                              0.14, 0.9, 0.920,0.0, 0.0, 0.0,  # rotation
-                              0.06, 0.06, 0.1)
-    #Call the service to spawn the box
-    spawn_srv.call(request)
-    spawn_srv.call(request2)
-    spawn_srv.call(request3)
-    spawn_srv.call(request4)
+    for i, pos in enumerate(positions):
+        color_index = i % len(colors)
+        color_name = colors[color_index].capitalize() 
+        
+        rospy.loginfo("Spawning package$%d with color %s", i+1, color_name)
+        
+        request = create_cube_request(cube_sdf_model, 
+                                    "package$" + str(i+1),
+                                    color_name,
+                                    pos[0], pos[1], pos[2],
+                                    0.0, 0.0, 0.0,  # rotation
+                                    0.06, 0.06, 0.1)  # size
+        
+        try:
+            spawn_srv.call(request)
+            rospy.loginfo("Successfully spawned package$%d", i+1)
+        except Exception as e:
+            rospy.logerr("Failed to spawn package$%d: %s", i+1, str(e))
 
     rospy.sleep(1.0)
+    rospy.loginfo("Box spawning complete!")
+
+
+
+

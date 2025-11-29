@@ -57,6 +57,7 @@ add_service_files(
   FILES
   frameDev.srv
   endEffectorPose.srv
+  chatPrompt.srv
 )
 
 ## Generate actions in the 'action' folder

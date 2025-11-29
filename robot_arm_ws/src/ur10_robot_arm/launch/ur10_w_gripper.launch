@@ -7,7 +7,7 @@
     command="load"/>
     
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" default="$(find arm)/ur10_w_gripper/world/ar_marker_chand.world"/>
+        <arg name="world_name" default="$(find ur10_robot_arm)/world/ar_marker_chand.world"/>
         <arg name="paused" default="false"/>
     </include>
     <node pkg="gazebo_ros" type="spawn_model" name="spawn_ur10" args="-param robot_description -urdf -model ur10_w_gripper -z 0.0" />
